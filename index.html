@@ -864,7 +864,7 @@ const TEXTS = {
       "Global Masonic communication dashboard."
     ],
     philanthropy:"We commit to donating 100% of net profits to social projects and entities.",
-    installTitle:"How to install the app",
+    installTitle:"How to install app",
     install:[
       "📱 On mobile: open https://mymotherlodge.app in your browser, tap the three-dot menu and select 'Add to Home screen'.",
       "💻 On desktop: open the same address and use your browser's 'Install app' option.",
@@ -1147,7 +1147,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
   const nav = document.getElementById("nav");
   
-  mobileMenuToggle.addEventListener("click", () => {
+  // MODIFICACIÓN 1: Añadido e.stopPropagation() para evitar conflictos
+  mobileMenuToggle.addEventListener("click", (e) => {
+    e.stopPropagation(); // Evita que el clic se propague al document
     mobileMenuToggle.classList.toggle("active");
     nav.classList.toggle("active");
   });
@@ -1159,6 +1161,17 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileMenuToggle.classList.remove("active");
       nav.classList.remove("active");
     });
+  });
+  
+  // MODIFICACIÓN 2: Nueva funcionalidad para cerrar menú al hacer clic fuera
+  document.addEventListener("click", (e) => {
+    // Si el menú está activo y el clic no es en el menú ni en el botón
+    if (nav.classList.contains("active") && 
+        !nav.contains(e.target) && 
+        !mobileMenuToggle.contains(e.target)) {
+      mobileMenuToggle.classList.remove("active");
+      nav.classList.remove("active");
+    }
   });
   
   // Header scroll effect
@@ -1231,6 +1244,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-
 </body></html>
-
