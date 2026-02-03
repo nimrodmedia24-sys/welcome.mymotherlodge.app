@@ -30,41 +30,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-  /* ---------------------------
-     Variables globales y diseño base
+ /* ---------------------------
+     Variables globales
      --------------------------- */
   :root{
     --maxw:1200px;
-    --bg-top:#f5f8fb;
-    --bg-bottom:#ffffff;
-    --accent:#1f3c88;
-    --accent-light:#2a4a9a;
-    --muted:#556375;
-    --card:#ffffff;
-    --gold:#b48b2e;
-    --gold-light:#d4a843;
-    --radius:12px;
-    --text:#0d2233;
-    --text-light:#3a5066;
-    --shadow:0 12px 30px rgba(4,12,20,0.06);
-    --shadow-hover:0 18px 40px rgba(4,12,20,0.12);
-    --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bg-primary:#ffffff;
+    --bg-secondary:#f8fafc;
+    --bg-tertiary:#f1f5f9;
+    --accent:#1e3a8a;
+    --accent-light:#3b82f6;
+    --accent-lighter:#60a5fa;
+    --text-primary:#1e293b;
+    --text-secondary:#475569;
+    --text-muted:#64748b;
+    --gold:#b8860b;
+    --gold-light:#d4a017;
+    --border:#e2e8f0;
+    --shadow-sm:0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --radius:8px;
+    --transition:all 0.3s ease;
   }
   
   @media (prefers-color-scheme: dark){
     :root{
-      --bg-top:#071226;
-      --bg-bottom:#071226;
-      --accent:#97b8ff;
-      --accent-light:#a8c5ff;
-      --muted:#9fb7ffcc;
-      --card:rgba(7,18,38,0.6);
-      --text:#e6eef6;
-      --text-light:#c7d5e3;
-      --shadow:0 12px 30px rgba(0,0,0,0.2);
-      --shadow-hover:0 18px 40px rgba(0,0,0,0.3);
+      --bg-primary:#0f172a;
+      --bg-secondary:#1e293b;
+      --bg-tertiary:#334155;
+      --accent:#60a5fa;
+      --accent-light:#93c5fd;
+      --accent-lighter:#dbeafe;
+      --text-primary:#f1f5f9;
+      --text-secondary:#cbd5e1;
+      --text-muted:#94a3b8;
+      --gold:#d4a017;
+      --gold-light:#fbbf24;
+      --border:#334155;
+      --shadow-sm:0 1px 2px 0 rgba(0, 0, 0, 0.2);
+      --shadow:0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+      --shadow-lg:0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
     }
-    body{color:var(--text)}
   }
 
   *{box-sizing:border-box; margin:0; padding:0}
@@ -73,34 +80,27 @@
     min-height:100vh;
     display:flex;
     flex-direction:column;
-    background:linear-gradient(180deg,var(--bg-top),var(--bg-bottom));
-    color:var(--text);
+    background:var(--bg-primary);
+    color:var(--text-primary);
     line-height:1.6;
-    font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family:Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight:400;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
-    overflow-x:hidden;
   }
 
   a{color:var(--accent); text-decoration:none; transition:var(--transition)}
-  a:hover{color:var(--accent-light); text-decoration:underline}
+  a:hover{color:var(--accent-light)}
   
-  /* Animaciones */
+  /* Animaciones sutiles */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
   
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-  
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
   }
   
   .fade-in {
@@ -118,12 +118,10 @@
     animation: fadeIn 0.8s ease 0.4s forwards;
   }
   
-  /* Header mejorado */
+  /* Header limpio y profesional */
   header{
-    background:rgba(255,255,255,0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom:1px solid rgba(10,20,30,0.06);
+    background:var(--bg-primary);
+    border-bottom:1px solid var(--border);
     position:sticky;
     top:0;
     z-index:100;
@@ -131,23 +129,58 @@
   }
   
   header.scrolled {
-    box-shadow: var(--shadow);
+    box-shadow:var(--shadow);
   }
   
-  @media (prefers-color-scheme: dark){
-    header{background:rgba(7,18,38,0.8); border-bottom:1px solid rgba(255,255,255,0.04);}
+  .header-inner{
+    max-width:var(--maxw); 
+    margin:0 auto; 
+    padding:20px 24px; 
+    display:flex; 
+    align-items:center; 
+    justify-content:space-between; 
+    gap:24px
   }
   
-  .header-inner{max-width:var(--maxw); margin:0 auto; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+  .brand{
+    display:flex; 
+    align-items:center; 
+    gap:16px; 
+    transition:var(--transition);
+  }
   
-  .brand{display:flex; align-items:center; gap:14px; transition:var(--transition)}
   .brand:hover{transform: translateY(-2px)}
-  .brand img{height:56px; width:auto; display:block; transition:var(--transition)}
-  .brand:hover img{transform: rotate(5deg) scale(1.05)}
-  .brand .title{font-weight:900; color:var(--accent); font-size:1.2rem; font-family:"Arial Black", "Arial Bold", Gadget, sans-serif}
+  .brand img{
+    height:48px; 
+    width:auto; 
+    display:block; 
+    transition:var(--transition);
+  }
+  .brand:hover img{
+    transform: scale(1.05);
+  }
+  .brand .title{
+    font-weight:900; 
+    color:var(--accent); 
+    font-size:1.3rem; 
+    font-family:"Arial Black", "Arial Bold", Gadget, sans-serif;
+    letter-spacing: -0.5px;
+  }
   
-  nav{display:flex; gap:20px; align-items:center}
-  nav a{font-weight:600; color:var(--accent); position: relative; padding: 5px 0}
+  nav{
+    display:flex; 
+    gap:32px; 
+    align-items:center;
+  }
+  
+  nav a{
+    font-weight:500; 
+    color:var(--text-secondary); 
+    position: relative; 
+    padding: 8px 0;
+    transition:var(--transition);
+  }
+  
   nav a::after {
     content: '';
     position: absolute;
@@ -158,16 +191,21 @@
     background: var(--gold);
     transition: width 0.3s ease;
   }
+  
   nav a:hover::after {
     width: 100%;
   }
   
+  nav a:hover{
+    color:var(--accent);
+  }
+  
   select#lang{
     padding:8px 12px; 
-    border-radius:8px; 
-    border:1px solid rgba(0,0,0,0.1); 
-    background:rgba(255,255,255,0.7); 
-    color:var(--text);
+    border-radius:var(--radius); 
+    border:1px solid var(--border); 
+    background:var(--bg-secondary); 
+    color:var(--text-primary);
     font-weight:500;
     cursor:pointer;
     transition:var(--transition);
@@ -175,12 +213,368 @@
   
   select#lang:hover {
     border-color: var(--accent);
-    background: rgba(255,255,255,0.9);
   }
   
-  @media (prefers-color-scheme: dark){
-    select#lang{background:rgba(7,18,38,0.7); border-color: rgba(255,255,255,0.1)}
-    select#lang:hover{background:rgba(7,18,38,0.9); border-color: var(--accent)}
+  /* Hero elegante y centrado */
+  .hero{
+    padding:80px 24px; 
+    text-align:center; 
+    background:linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    position: relative;
+  }
+  
+  .hero h1{
+    margin:0; 
+    font-size:clamp(2rem, 4vw, 3rem); 
+    color:var(--text-primary);
+    font-family: 'Playfair Display', serif;
+    font-weight:600;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    max-width:800px;
+    margin:0 auto;
+  }
+  
+  .hero p.lead{
+    margin-top:24px; 
+    color:var(--text-secondary); 
+    max-width:600px; 
+    margin-left:auto; 
+    margin-right:auto; 
+    font-size:1.1rem;
+    line-height: 1.7;
+  }
+  
+  .hero-cta {
+    margin-top:40px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .btn-hero {
+    padding:12px 24px; 
+    border-radius:var(--radius); 
+    border:0; 
+    cursor:pointer; 
+    font-weight:600; 
+    text-decoration:none;
+    font-size:1rem;
+    transition:var(--transition);
+    display: inline-block;
+  }
+  
+  .btn-hero-primary {
+    background:var(--accent); 
+    color:#fff;
+    box-shadow:var(--shadow);
+  }
+  
+  .btn-hero-primary:hover {
+    background:var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow:var(--shadow-lg);
+  }
+  
+  .btn-hero-secondary {
+    background:transparent; 
+    color:var(--accent);
+    border:2px solid var(--accent);
+  }
+  
+  .btn-hero-secondary:hover {
+    background:var(--accent);
+    color:#fff;
+  }
+  
+  /* App showcase simétrico */
+  .app-showcase {
+    padding:80px 24px;
+    background:var(--bg-tertiary);
+  }
+  
+  .app-showcase-container {
+    max-width:var(--maxw);
+    margin:0 auto;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items: center;
+  }
+  
+  .app-showcase-content {
+    text-align: left;
+  }
+  
+  .app-showcase-content h2 {
+    font-size:2rem;
+    color:var(--text-primary);
+    margin-bottom:20px;
+    font-family: 'Playfair Display', serif;
+    font-weight:600;
+  }
+  
+  .app-showcase-content p {
+    color:var(--text-secondary);
+    font-size:1.1rem;
+    line-height:1.7;
+    margin-bottom:30px;
+  }
+  
+  .app-showcase-features {
+    list-style: none;
+    padding:0;
+  }
+  
+  .app-showcase-features li {
+    display: flex;
+    align-items: center;
+    margin-bottom:16px;
+    color:var(--text-primary);
+    font-size:1rem;
+  }
+  
+  .app-showcase-features li::before {
+    content: '✓';
+    display: inline-block;
+    width:24px;
+    height:24px;
+    background: var(--gold);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height:24px;
+    margin-right:12px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  
+  .app-showcase-image img {
+    width:100%;
+    height: auto;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-lg);
+    transition:var(--transition);
+  }
+  
+  .app-showcase-image:hover img {
+    transform: translateY(-8px);
+    box-shadow:0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Grid balanceado */
+  .grid{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+    display:grid; 
+    grid-template-columns:1fr 380px; 
+    gap:32px;
+    margin-top:60px;
+  }
+  
+  @media (max-width:980px){ 
+    .grid{grid-template-columns:1fr; gap:24px} 
+    .app-showcase-container {
+      grid-template-columns:1fr;
+      gap:40px;
+    }
+  }
+  
+  .card{
+    background:var(--bg-primary); 
+    border-radius:var(--radius); 
+    padding:32px; 
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+    border:1px solid var(--border);
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow:var(--shadow-lg);
+  }
+  
+  .info-block p{
+    margin:1rem 0; 
+    color:var(--text-secondary); 
+    position: relative; 
+    padding-left: 20px;
+    font-size:1rem;
+    line-height:1.7;
+  }
+  
+  .info-block p::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: bold;
+  }
+  
+  .features{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+  @media (max-width:700px){ .features{grid-template-columns:1fr} }
+  
+  .feature{
+    padding:16px; 
+    border-radius:var(--radius); 
+    background:var(--bg-secondary); 
+    border:1px solid var(--border);
+    transition:var(--transition);
+  }
+  
+  .feature:hover {
+    background:var(--bg-tertiary);
+    border-color: var(--accent);
+  }
+  
+  .feature strong{display:block; margin-bottom:8px; color:var(--text-primary); font-weight:600}
+  
+  .highlight{
+    border-left:4px solid var(--gold); 
+    background:linear-gradient(90deg, rgba(184,134,11,0.1), transparent); 
+    padding:20px; 
+    border-radius:var(--radius); 
+    font-style:italic; 
+    text-align:center; 
+    margin-bottom:20px;
+    font-size:1.05rem;
+    line-height:1.6;
+  }
+  
+  .install .step{
+    margin:16px 0; 
+    color:var(--text-secondary);
+    padding: 16px;
+    border-radius:var(--radius);
+    background:var(--bg-secondary);
+    transition:var(--transition);
+    font-size:1rem;
+    line-height:1.7;
+  }
+  
+  .install .step:hover {
+    background:var(--bg-tertiary);
+  }
+  
+  .cta{display:flex; justify-content:center; margin-top:24px}
+  .btn-primary{
+    background:var(--accent); 
+    color:#fff; 
+    padding:12px 24px; 
+    border-radius:var(--radius); 
+    border:0; 
+    cursor:pointer; 
+    font-weight:600; 
+    text-decoration:none;
+    display: inline-block;
+    transition:var(--transition);
+    font-size:1rem;
+    box-shadow:var(--shadow);
+  }
+  
+  .btn-primary:hover{
+    background:var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow:var(--shadow-lg);
+  }
+  
+  /* Footer profesional */
+  footer{
+    margin-top:80px; 
+    padding:60px 24px 24px; 
+    background:var(--bg-secondary);
+    border-top:1px solid var(--border);
+  }
+  
+  .footer-inner{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:32px}
+  @media (max-width:900px){ .footer-inner{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:480px){ .footer-inner{grid-template-columns:1fr} }
+  
+  .footer-column h4{
+    margin:0 0 16px 0; 
+    color:var(--text-primary); 
+    font-size:1.1rem;
+    font-weight:600;
+  }
+  
+  .footer-column p{margin:0; color:var(--text-secondary); font-size:0.95rem}
+  .footer-column ul{list-style:none; margin:0; padding:0}
+  .footer-column li{margin:12px 0}
+  .footer-column a{color:var(--text-secondary); text-decoration:none; font-size:0.95rem; transition:var(--transition)}
+  .footer-column a:hover{color:var(--accent)}
+  
+  .footer-bottom{
+    border-top:1px solid var(--border); 
+    margin-top:32px; 
+    padding-top:24px; 
+    text-align:center; 
+    color:var(--text-muted);
+    font-size: 0.9rem;
+  }
+  
+  /* Cookie banner discreto */
+  #cookie-banner{
+    position:fixed; 
+    left:24px; 
+    right:24px; 
+    bottom:24px; 
+    max-width:1000px; 
+    margin:auto; 
+    display:none; 
+    z-index:999;
+    animation: slideIn 0.5s ease;
+  }
+  
+  .cookie-card{
+    background:var(--bg-primary); 
+    padding:20px; 
+    border-radius:var(--radius); 
+    box-shadow:var(--shadow-lg); 
+    display:flex; 
+    gap:16px; 
+    align-items:center; 
+    justify-content:space-between; 
+    flex-wrap:wrap;
+    border:1px solid var(--border);
+  }
+  
+  .cookie-text{color:var(--text-secondary); max-width:70%}
+  .cookie-actions{display:flex; gap:12px}
+  .cookie-actions button{
+    padding:8px 16px; 
+    border-radius:var(--radius); 
+    border:0; 
+    cursor:pointer;
+    font-weight:500;
+    transition:var(--transition);
+  }
+  
+  .btn-accept{
+    background:var(--accent); 
+    color:white;
+  }
+  
+  .btn-accept:hover {
+    background:var(--accent-light);
+  }
+  
+  .btn-reject{
+    background:var(--bg-secondary);
+    color:var(--text-primary);
+    border:1px solid var(--border);
+  }
+  
+  .btn-prefs{
+    background:transparent; 
+    border:1px solid var(--border); 
+    color:var(--text-secondary);
+  }
+  
+  .btn-prefs:hover {
+    border-color: var(--accent);
+    color: var(--accent);
   }
   
   /* Menú móvil */
@@ -189,14 +583,14 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 4px;
   }
   
   .mobile-menu-toggle span {
     display: block;
-    width: 25px;
-    height: 3px;
-    background: var(--accent);
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
     margin: 5px 0;
     transition: var(--transition);
   }
@@ -213,352 +607,6 @@
     transform: rotate(-45deg) translate(7px, -6px);
   }
   
-  /* Main / Hero mejorado */
-  main{flex:1; max-width:var(--maxw); margin:40px auto; padding:0 20px; width:100%}
-  .hero{padding:40px 10px; text-align:center; position: relative}
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(180,139,46,0.1) 0%, rgba(180,139,46,0) 70%);
-    border-radius: 50%;
-    z-index: -1;
-  }
-  .hero h1{
-    margin:0; 
-    font-size:2.5rem; 
-    color:var(--accent);
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-  }
-  .hero p.lead{
-    margin-top:20px; 
-    color:var(--muted); 
-    max-width:800px; 
-    margin-left:auto; 
-    margin-right:auto; 
-    font-size:1.1rem;
-    line-height: 1.7;
-  }
-  
-  /* Grid mejorado */
-  .grid{display:grid; grid-template-columns:1fr 380px; gap:24px; margin-top:30px}
-  @media (max-width:980px){ .grid{grid-template-columns:1fr} }
-  
-  .card{
-    background:var(--card); 
-    border-radius:var(--radius); 
-    padding:24px; 
-    box-shadow:var(--shadow);
-    transition:var(--transition);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--gold));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s ease;
-  }
-  
-  .card:hover::before {
-    transform: scaleX(1);
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-  }
-  
-  @media (prefers-color-scheme: dark){ 
-    .card{background:var(--card); box-shadow:none; border:1px solid rgba(255,255,255,0.03);} 
-    .card:hover {
-      border-color: rgba(255,255,255,0.08);
-    }
-  }
-  
-  .info-block p{margin:1rem 0; color:var(--muted); position: relative; padding-left: 20px}
-  .info-block p::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    font-weight: bold;
-  }
-  
-  .features{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
-  @media (max-width:700px){ .features{grid-template-columns:1fr} }
-  
-  .feature{
-    padding:16px; 
-    border-radius:10px; 
-    background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent); 
-    border:1px solid rgba(0,0,0,0.03);
-    transition:var(--transition);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .feature::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    background: linear-gradient(180deg, rgba(180,139,46,0.1), rgba(180,139,46,0.05));
-    transition: height 0.3s ease;
-  }
-  
-  .feature:hover::after {
-    height: 100%;
-  }
-  
-  .feature:hover {
-    transform: translateY(-3px);
-    border-color: rgba(180,139,46,0.2);
-  }
-  
-  .feature strong{display:block; margin-bottom:8px; color:var(--accent); font-weight: 600}
-  
-  .highlight{
-    border-left:4px solid var(--gold); 
-    background:linear-gradient(90deg, rgba(180,139,46,0.06), rgba(180,139,46,0.02)); 
-    padding:18px; 
-    border-radius:8px; 
-    font-style:italic; 
-    text-align:center; 
-    margin-bottom:16px;
-    position: relative;
-  }
-  
-  .highlight::before {
-    content: '"';
-    position: absolute;
-    top: 0;
-    left: 10px;
-    font-size: 3rem;
-    color: var(--gold);
-    opacity: 0.3;
-    font-family: 'Playfair Display', serif;
-  }
-  
-  .install .step{
-    margin:14px 0; 
-    color:var(--muted);
-    padding: 12px;
-    border-radius: 8px;
-    background: rgba(0,0,0,0.02);
-    transition: var(--transition);
-  }
-  
-  .install .step:hover {
-    background: rgba(0,0,0,0.05);
-    transform: translateX(5px);
-  }
-  
-  .cta{display:flex; justify-content:center; margin-top:20px}
-  .btn-primary{
-    background:linear-gradient(135deg, var(--accent), var(--accent-light)); 
-    color:#fff; 
-    padding:14px 28px; 
-    border-radius:30px; 
-    border:0; 
-    cursor:pointer; 
-    font-weight:600; 
-    text-decoration:none;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(31, 60, 136, 0.3);
-  }
-  
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
-  }
-  
-  .btn-primary:hover::before {
-    left: 100%;
-  }
-  
-  .btn-primary:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(31, 60, 136, 0.4);
-  }
-  
-  /* Footer mejorado */
-  footer{
-    margin-top:40px; 
-    padding:40px 20px; 
-    background:linear-gradient(180deg, rgba(0,0,0,0.03), transparent);
-    position: relative;
-  }
-  
-  footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  
-  .footer-inner{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:30px}
-  @media (max-width:900px){ .footer-inner{grid-template-columns:repeat(2,1fr)} }
-  @media (max-width:480px){ .footer-inner{grid-template-columns:1fr} }
-  
-  .footer-column h4{
-    margin:0 0 12px 0; 
-    color:var(--accent); 
-    font-size:1.1rem;
-    font-weight: 600;
-    position: relative;
-    padding-bottom: 8px;
-  }
-  
-  .footer-column h4::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 30px;
-    height: 2px;
-    background: var(--gold);
-  }
-  
-  .footer-column p{margin:0; color:var(--muted); font-size:.95rem}
-  .footer-column ul{list-style:none; margin:0; padding:0}
-  .footer-column li{margin:10px 0; position: relative; padding-left: 15px}
-  .footer-column li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    transition: var(--transition);
-  }
-  .footer-column li:hover::before {
-    transform: translateX(5px);
-  }
-  .footer-column a{color:var(--muted); text-decoration:none; font-size:.95rem; transition: var(--transition)}
-  .footer-column a:hover{color:var(--accent); text-decoration: underline}
-  
-  .footer-bottom{
-    border-top:1px solid rgba(0,0,0,0.04); 
-    margin-top:24px; 
-    padding-top:24px; 
-    text-align:center; 
-    color:var(--muted);
-    font-size: 0.9rem;
-  }
-  
-  /* Cookie banner mejorado */
-  #cookie-banner{
-    position:fixed; 
-    left:20px; 
-    right:20px; 
-    bottom:20px; 
-    max-width:1100px; 
-    margin:auto; 
-    display:none; 
-    z-index:9999;
-    animation: fadeIn 0.5s ease;
-  }
-  
-  .cookie-card{
-    background:var(--card); 
-    padding:20px; 
-    border-radius:16px; 
-    box-shadow:0 20px 50px rgba(2,6,23,0.15); 
-    display:flex; 
-    gap:16px; 
-    align-items:center; 
-    justify-content:space-between; 
-    flex-wrap:wrap;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .cookie-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--gold));
-  }
-  
-  .cookie-text{color:var(--muted); max-width:70%}
-  .cookie-actions{display:flex; gap:12px}
-  .cookie-actions button{
-    padding:10px 16px; 
-    border-radius:8px; 
-    border:0; 
-    cursor:pointer;
-    font-weight: 500;
-    transition: var(--transition);
-  }
-  
-  .btn-accept{
-    background:linear-gradient(135deg, var(--accent), var(--accent-light)); 
-    color:white;
-    box-shadow: 0 4px 10px rgba(31, 60, 136, 0.2);
-  }
-  
-  .btn-accept:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(31, 60, 136, 0.3);
-  }
-  
-  .btn-reject{
-    background:#e6e6e6;
-    color: var(--text);
-  }
-  
-  .btn-reject:hover {
-    background: #d0d0d0;
-  }
-  
-  .btn-prefs{
-    background:transparent; 
-    border:1px solid rgba(0,0,0,0.1); 
-    color:var(--muted);
-  }
-  
-  .btn-prefs:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  
-  @media (prefers-color-scheme: dark){
-    .cookie-card{background:var(--card); border:1px solid rgba(255,255,255,0.03)}
-    .btn-reject{background:#2a3946; color:#fff}
-    .btn-prefs{border-color:rgba(255,255,255,0.06); color:var(--muted)}
-  }
-  
-  /* Responsive mejorado */
   @media (max-width:768px){
     .mobile-menu-toggle {
       display: block;
@@ -569,17 +617,17 @@
       top: 88px;
       left: 0;
       width: 100%;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
+      background:var(--bg-primary);
       flex-direction: column;
-      padding: 20px;
-      gap: 15px;
+      padding: 24px;
+      gap: 16px;
       transform: translateY(-100%);
       opacity: 0;
       visibility: hidden;
       transition: var(--transition);
       z-index: 99;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow:var(--shadow-lg);
+      border-bottom:1px solid var(--border);
     }
     
     nav.active {
@@ -588,57 +636,44 @@
       visibility: visible;
     }
     
-    @media (prefers-color-scheme: dark){
-      nav {
-        background: rgba(7,18,38,0.95);
-      }
-    }
-    
     .hero h1 {
       font-size: 2rem;
     }
     
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+    
     .cookie-text{max-width:100%; margin-bottom:12px}
     .cookie-card{flex-direction:column; align-items:flex-start}
-    .header-inner{flex-direction:column; align-items:flex-start}
+    .header-inner{flex-direction:column; align-items:flex-start; gap:16px}
   }
   
-  /* Efectos de scroll */
-  .scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  
-  .scroll-reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Loading animation */
+  /* Loading */
   .loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--bg-top);
+    background:var(--bg-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition: opacity 0.5s ease;
   }
   
   .loader.hidden {
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
   }
   
   .loader-circle {
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(31, 60, 136, 0.2);
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
     border-top-color: var(--accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -648,48 +683,35 @@
     to { transform: rotate(360deg); }
   }
   
-  /* Decorative elements */
-  .decoration {
-    position: absolute;
-    z-index: -1;
+  /* Google Play Badge */
+  .google-play-badge {
+    display: inline-block;
+    margin-top: 16px;
+    transition: var(--transition);
   }
   
-  .decoration-1 {
-    top: 10%;
-    right: 5%;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(180,139,46,0.1) 0%, rgba(180,139,46,0) 70%);
-    animation: float 6s ease-in-out infinite;
+  .google-play-badge:hover {
+    transform: translateY(-3px);
   }
   
-  .decoration-2 {
-    bottom: 20%;
-    left: 5%;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(31,60,136,0.1) 0%, rgba(31,60,136,0) 70%);
-    animation: float 8s ease-in-out infinite;
+  .google-play-badge img {
+    height: 60px;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
   }
 </style>
 </head>
 <body>
-  <!-- Loading animation -->
+  <!-- Loading -->
   <div class="loader" id="loader">
     <div class="loader-circle"></div>
   </div>
-  
-  <!-- Decorative elements -->
-  <div class="decoration decoration-1"></div>
-  <div class="decoration decoration-2"></div>
   
   <!-- Header -->
   <header id="header">
     <div class="header-inner">
       <div class="brand">
-        <!-- Local image: mml-logo.png must be in same folder -->
         <a href="https://mymotherlodge.app" class="logo-link"><img src="mml-logo.png" alt="My Mother Lodge logo"></a>
         <div class="title">My Mother Lodge</div>
       </div>
@@ -717,21 +739,50 @@
 
   <!-- Main -->
   <main>
+    <!-- Hero -->
     <section class="hero fade-in">
       <h1 id="hero-title">Una herramienta hecha por masones, para masones.</h1>
       <p id="hero-sub" class="lead">My Mother Lodge es una herramienta de gestión diseñada para fortalecer el vínculo masónico y facilitar la comunicación interna y externa de las logias. Porque la fraternidad se fortalece con conocimiento y comunicación.</p>
+      <div class="hero-cta">
+        <a id="cta-hero" class="btn-hero btn-hero-primary" href="https://mymotherlodge.app">Acceder a la aplicación</a>
+        <a id="cta-hero-secondary" class="btn-hero btn-hero-secondary" href="#app-showcase">Descubrir más</a>
+      </div>
+    </section>
+
+    <!-- App showcase -->
+    <section class="app-showcase fade-in-delay-1" id="app-showcase">
+      <div class="app-showcase-container">
+        <div class="app-showcase-content">
+          <h2 id="app-showcase-title">Gestiona tu logia de forma segura</h2>
+          <p id="app-showcase-desc">Conecta con la fraternidad masónica desde cualquier lugar. Nuestra aplicación te ofrece todas las herramientas necesarias para una gestión eficiente.</p>
+          <ul class="app-showcase-features">
+            <li id="app-feature-1">Acceso seguro y privado</li>
+            <li id="app-feature-2">Comunicación instantánea</li>
+            <li id="app-feature-3">Gestión de eventos y tenidas</li>
+            <li id="app-feature-4">Disponible en múltiples idiomas</li>
+          </ul>
+          <div class="google-play-badge">
+            <a href="https://play.google.com/store/apps/details?id=app.mymotherlodge.twa" target="_blank" rel="noopener">
+              <img src="https://play.google.com/intl/en_us/badges/static/images/badges/es-414_badge_web_generic.png" alt="Disponible en Google Play">
+            </a>
+          </div>
+        </div>
+        <div class="app-showcase-image">
+          <img src="https://z-cdn-media.chatglm.cn/files/a52e182e-8c5c-497a-acbb-3380b1e2a544.png?auth_key=1869465784-11a4d3c0b0b049fe874b0cb9f447ad71-0-7a16c038d48e3d6b652633a62381511e" alt="My Mother Lodge Mobile App" />
+        </div>
+      </div>
     </section>
 
     <div class="grid">
       <div>
-        <section id="info-block" class="card info-block fade-in-delay-1" aria-label="Información principal"></section>
+        <section id="info-block" class="card info-block fade-in-delay-2" aria-label="Información principal"></section>
 
-        <section class="card fade-in-delay-1" style="margin-top:20px">
+        <section class="card fade-in-delay-2" style="margin-top:24px">
           <h3 id="features-title">Funciones destacadas</h3>
           <div id="features-list" class="features"></div>
         </section>
 
-        <section class="card install fade-in-delay-2" style="margin-top:20px">
+        <section class="card install fade-in-delay-2" style="margin-top:24px">
           <h3 id="install-title">Instalación</h3>
           <div id="install-list"></div>
         </section>
@@ -741,10 +792,10 @@
         <div class="card fade-in-delay-2">
           <div id="philanthropy" class="highlight">Nos comprometemos a donar el 100% de los beneficios netos a proyectos y entidades con fines sociales.</div>
 
-          <div style="margin-top:20px; text-align:center">
+          <div style="margin-top:24px; text-align:center">
             <a id="cta" class="btn-primary" href="https://mymotherlodge.app">Acceder a la aplicación</a>
-            <div style="margin-top:12px; color:var(--muted)">Acceso universal y gratuito</div>
-            <div style="margin-top:10px; font-size:0.9rem; color:var(--muted)" id="terms-note">Consultar página de Términos de servicio para más información.</div>
+            <div style="margin-top:12px; color:var(--text-secondary)">Acceso universal y gratuito</div>
+            <div style="margin-top:8px; font-size:0.9rem; color:var(--text-muted)" id="terms-note">Consultar página de Términos de servicio para más información.</div>
           </div>
         </div>
       </aside>
@@ -756,7 +807,7 @@
     <div class="footer-inner">
       <div class="footer-column">
         <h4 id="footer-brand-title">My Mother Lodge</h4>
-        <p id="footer-brand-desc" class="muted">Una herramienta hecha por masones, para masones.</p>
+        <p id="footer-brand-desc">Una herramienta hecha por masones, para masones.</p>
       </div>
 
       <div class="footer-column">
@@ -804,7 +855,7 @@
 
 <script>
 /* ===========================
-   Translations: es,en,fr,pt,de,ca
+   Translations
    =========================== */
 const TEXTS = {
   es: {
@@ -831,6 +882,7 @@ const TEXTS = {
     install:[
       "📱 En móvil: abre https://mymotherlodge.app en el navegador, toca los tres puntos del menú y selecciona 'Agregar a pantalla de inicio'.",
       "💻 En ordenador: abre la misma dirección y usa la opción 'Instalar aplicación' del navegador.",
+      "📲 Disponible en Google Play Store."
     ],
     cta:"Acceder a la aplicación",
     cookieText:"Usamos cookies para mejorar tu experiencia. Puedes aceptar todas, rechazarlas o configurar preferencias.",
@@ -841,7 +893,15 @@ const TEXTS = {
     footerLegalTitle:"Legal", footerSupportTitle:"Soporte", footerAppTitle:"Aplicación",
     footerHelp:"Centro de Ayuda", footerFaq:"Preguntas Frecuentes", footerContact:"Contacto",
     footerAccess:"Acceder a la App", footerSubscriptions:"Suscripciones",
-    footerRights:"Todos los derechos reservados"
+    footerRights:"Todos los derechos reservados",
+    appShowcaseTitle:"Gestiona tu logia de forma segura",
+    appShowcaseDesc:"Conecta con la fraternidad masónica desde cualquier lugar. Nuestra aplicación te ofrece todas las herramientas necesarias para una gestión eficiente.",
+    appFeature1:"Acceso seguro y privado",
+    appFeature2:"Comunicación instantánea",
+    appFeature3:"Gestión de eventos y tenidas",
+    appFeature4:"Disponible en múltiples idiomas",
+    ctaHero:"Acceder a la aplicación",
+    ctaHeroSecondary:"Descubrir más"
   },
   en: {
     navFaq:"FAQ", navPricing:"Subscriptions for lodges",
@@ -867,6 +927,7 @@ const TEXTS = {
     install:[
       "📱 On mobile: open https://mymotherlodge.app in your browser, tap the three-dot menu and select 'Add to Home screen'.",
       "💻 On desktop: open the same address and use your browser's 'Install app' option.",
+      "📲 Available on Google Play Store."
     ],
     cta:"Access the app",
     cookieText:"We use cookies to improve your experience. You can accept all, reject all, or configure preferences.",
@@ -877,7 +938,15 @@ const TEXTS = {
     footerLegalTitle:"Legal", footerSupportTitle:"Support", footerAppTitle:"Application",
     footerHelp:"Help Center", footerFaq:"FAQ", footerContact:"Contact",
     footerAccess:"Access the App", footerSubscriptions:"Subscriptions",
-    footerRights:"All rights reserved"
+    footerRights:"All rights reserved",
+    appShowcaseTitle:"Manage your lodge securely",
+    appShowcaseDesc:"Connect with the Masonic fraternity from anywhere. Our app offers all the tools you need for efficient management.",
+    appFeature1:"Secure and private access",
+    appFeature2:"Instant communication",
+    appFeature3:"Event and meeting management",
+    appFeature4:"Available in multiple languages",
+    ctaHero:"Access the app",
+    ctaHeroSecondary:"Discover more"
   },
   fr: {
     navFaq:"Questions fréquentes", navPricing:"Abonnements pour loges",
@@ -903,6 +972,7 @@ const TEXTS = {
     install:[
       "📱 Sur mobile : ouvrez https://mymotherlodge.app dans votre navigateur, ouvrez le menu et sélectionnez « Ajouter à l'écran d'accueil ».",
       "💻 Sur ordinateur : ouvrez la même adresse et utilisez l'option « Installer l'application » du navigateur.",
+      "📲 Disponible sur Google Play Store."
     ],
     cta:"Accéder à l'application",
     cookieText:"Nous utilisons des cookies pour améliorer votre expérience. Vous pouvez tout accepter, tout refuser ou configurer les préférences.",
@@ -913,7 +983,15 @@ const TEXTS = {
     footerLegalTitle:"Légal", footerSupportTitle:"Support", footerAppTitle:"Application",
     footerHelp:"Centre d'aide", footerFaq:"Questions fréquentes", footerContact:"Contact",
     footerAccess:"Accéder à l'App", footerSubscriptions:"Abonnements",
-    footerRights:"Tous droits réservés"
+    footerRights:"Tous droits réservés",
+    appShowcaseTitle:"Gérez votre loge en toute sécurité",
+    appShowcaseDesc:"Connectez-vous avec la fraternité maçonnique de n'importe où. Notre application vous offre tous les outils nécessaires pour une gestion efficace.",
+    appFeature1:"Accès sécurisé et privé",
+    appFeature2:"Communication instantanée",
+    appFeature3:"Gestion des événements et tenues",
+    appFeature4:"Disponible en plusieurs langues",
+    ctaHero:"Accéder à l'application",
+    ctaHeroSecondary:"Découvrir plus"
   },
   pt: {
     navFaq:"Perguntas Frequentes", navPricing:"Assinaturas para lojas",
@@ -939,6 +1017,7 @@ const TEXTS = {
     install:[
       "📱 No telemóvel: abra https://mymotherlodge.app no navegador, toque no menu e selecione 'Adicionar ao ecrã principal'.",
       "💻 No computador: abra o mesmo endereço e use a opção 'Instalar aplicação' do navegador.",
+      "📲 Disponível na Google Play Store."
     ],
     cta:"Aceder à aplicação",
     cookieText:"Utilizamos cookies para melhorar a sua experiência. Pode aceitar tudo, recusar tudo ou configurar preferências.",
@@ -949,7 +1028,15 @@ const TEXTS = {
     footerLegalTitle:"Legal", footerSupportTitle:"Suporte", footerAppTitle:"Aplicação",
     footerHelp:"Centro de Ajuda", footerFaq:"Perguntas Frequentes", footerContact:"Contacto",
     footerAccess:"Aceder à App", footerSubscriptions:"Assinaturas",
-    footerRights:"Todos os direitos reservados"
+    footerRights:"Todos os direitos reservados",
+    appShowcaseTitle:"Gerencie sua loja de forma segura",
+    appShowcaseDesc:"Conecte-se com a fraternidade maçônica de qualquer lugar. Nosso aplicativo oferece todas as ferramentas necessárias para uma gestão eficiente.",
+    appFeature1:"Acesso seguro e privado",
+    appFeature2:"Comunicação instantânea",
+    appFeature3:"Gestão de eventos e reuniões",
+    appFeature4:"Disponível em vários idiomas",
+    ctaHero:"Aceder à aplicação",
+    ctaHeroSecondary:"Descobrir mais"
   },
   de: {
     navFaq:"FAQ", navPricing:"Abonnements für Logen",
@@ -975,6 +1062,7 @@ const TEXTS = {
     install:[
       "📱 Auf dem Handy: Öffnen Sie https://mymotherlodge.app im Browser, öffnen Sie das Menü und wählen Sie 'Zum Startbildschirm hinzufügen'.",
       "💻 Auf dem Desktop: Öffnen Sie dieselbe Adresse und verwenden Sie die Option 'App installieren' im Browser.",
+      "📲 Verfügbar in Google Play Store."
     ],
     cta:"Zur App",
     cookieText:"Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Sie können alle akzeptieren, alle ablehnen oder Präferenzen konfigurieren.",
@@ -985,7 +1073,15 @@ const TEXTS = {
     footerLegalTitle:"Rechtliches", footerSupportTitle:"Support", footerAppTitle:"Anwendung",
     footerHelp:"Hilfezentrum", footerFaq:"FAQ", footerContact:"Kontakt",
     footerAccess:"Zur App", footerSubscriptions:"Abonnements",
-    footerRights:"Alle Rechte vorbehalten"
+    footerRights:"Alle Rechte vorbehalten",
+    appShowcaseTitle:"Verwalten Sie Ihre Loge sicher",
+    appShowcaseDesc:"Verbinden Sie sich mit der freimaurerischen Bruderschaft von überall. Unsere App bietet alle notwendigen Werkzeuge für eine effiziente Verwaltung.",
+    appFeature1:"Sicherer und privater Zugang",
+    appFeature2:"Sofortkommunikation",
+    appFeature3:"Veranstaltungs- und Treffenmanagement",
+    appFeature4:"Verfügbar in mehreren Sprachen",
+    ctaHero:"Zur App",
+    ctaHeroSecondary:"Mehr entdecken"
   },
   ca: {
     navFaq:"Preguntes freqüents", navPricing:"Subscripcions per a lògies",
@@ -1011,6 +1107,7 @@ const TEXTS = {
     install:[
       "📱 Al mòbil: obre https://mymotherlodge.app al navegador, toca els tres punts del menú i selecciona 'Afegir a la pantalla d'inici'.",
       "💻 A l'ordinador: obre la mateixa adreça i utilitza l'opció 'Instal·lar aplicació' del navegador.",
+      "📲 Disponible a Google Play Store."
     ],
     cta:"Accedir a l'aplicació",
     cookieText:"Utilitzem galetes per millorar la teva experiència. Pots acceptar-les totes, rebutjar-les o configurar preferències.",
@@ -1021,7 +1118,15 @@ const TEXTS = {
     footerLegalTitle:"Legal", footerSupportTitle:"Suport", footerAppTitle:"Aplicació",
     footerHelp:"Centre d'Ajuda", footerFaq:"Preguntes freqüents", footerContact:"Contacte",
     footerAccess:"Accedir a l'App", footerSubscriptions:"Subscripcions",
-    footerRights:"Tots els drets reservats"
+    footerRights:"Tots els drets reservats",
+    appShowcaseTitle:"Gestiona la teva lògia de forma segura",
+    appShowcaseDesc:"Connecta amb la fraternitat maçònica des de qualsevol lloc. La nostra aplicació t'ofereix totes les eines necessàries per a una gestió eficient.",
+    appFeature1:"Accés segur i privat",
+    appFeature2:"Comunicació instantània",
+    appFeature3:"Gestió d'esdeveniments i tenides",
+    appFeature4:"Disponible en múltiples idiomes",
+    ctaHero:"Accedir a l'aplicació",
+    ctaHeroSecondary:"Descobrir més"
   }
 };
 
@@ -1079,6 +1184,18 @@ function render(lang){
   document.getElementById("footer-subscriptions").textContent = t.footerSubscriptions;
   document.getElementById("footer-rights").textContent = t.footerRights;
 
+  // App showcase translations
+  document.getElementById("app-showcase-title").textContent = t.appShowcaseTitle;
+  document.getElementById("app-showcase-desc").textContent = t.appShowcaseDesc;
+  document.getElementById("app-feature-1").textContent = t.appFeature1;
+  document.getElementById("app-feature-2").textContent = t.appFeature2;
+  document.getElementById("app-feature-3").textContent = t.appFeature3;
+  document.getElementById("app-feature-4").textContent = t.appFeature4;
+
+  // Hero CTA translations
+  document.getElementById("cta-hero").textContent = t.ctaHero;
+  document.getElementById("cta-hero-secondary").textContent = t.ctaHeroSecondary;
+
   localStorage.setItem("mml_lang", lang);
 }
 
@@ -1086,7 +1203,7 @@ render(userLang);
 sel.addEventListener("change", e => render(e.target.value));
 
 /* -------------------------
-   Cookie banner (minimal)
+   Cookie banner
    ------------------------- */
 const CONSENT_KEY = "mml_cookie_consent_v1";
 function monthsFromNow(m){ const d=new Date(); d.setMonth(d.getMonth()+m); return d.getTime(); }
@@ -1101,7 +1218,7 @@ function loadConsent(){
   }catch(e){ return null; }
 }
 function saveConsent(obj){ obj.expires = monthsFromNow(6); localStorage.setItem(CONSENT_KEY, JSON.stringify(obj)); }
-function applyConsent(conf){ document.getElementById("cookie-banner").style.display = "none"; /* load analytics if conf.analytics */ }
+function applyConsent(conf){ document.getElementById("cookie-banner").style.display = "none"; }
 
 document.addEventListener("DOMContentLoaded", ()=>{
   const banner = document.getElementById("cookie-banner");
@@ -1127,23 +1244,22 @@ document.addEventListener("DOMContentLoaded", ()=>{
 });
 
 /* -------------------------
-   Enhanced UI interactions
+   UI interactions
    ------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  // Hide loader when page is fully loaded
+  // Hide loader
   window.addEventListener("load", () => {
     setTimeout(() => {
       document.getElementById("loader").classList.add("hidden");
     }, 500);
   });
   
-  // Mobile menu toggle
+  // Mobile menu
   const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
   const nav = document.getElementById("nav");
   
-  // MODIFICACIÓN 1: Añadido e.stopPropagation() para evitar conflictos
   mobileMenuToggle.addEventListener("click", (e) => {
-    e.stopPropagation(); // Evita que el clic se propague al document
+    e.stopPropagation();
     mobileMenuToggle.classList.toggle("active");
     nav.classList.toggle("active");
   });
@@ -1157,9 +1273,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
   
-  // MODIFICACIÓN 2: Nueva funcionalidad para cerrar menú al hacer clic fuera
+  // Close mobile menu when clicking outside
   document.addEventListener("click", (e) => {
-    // Si el menú está activo y el clic no es en el menú ni en el botón
     if (nav.classList.contains("active") && 
         !nav.contains(e.target) && 
         !mobileMenuToggle.contains(e.target)) {
@@ -1171,55 +1286,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Header scroll effect
   const header = document.getElementById("header");
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
+    if (window.scrollY > 20) {
       header.classList.add("scrolled");
     } else {
       header.classList.remove("scrolled");
     }
-  });
-  
-  // Scroll reveal animation
-  const revealElements = document.querySelectorAll(".card");
-  
-  function checkScroll() {
-    revealElements.forEach(element => {
-      const elementTop = element.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-      
-      if (elementTop < windowHeight - 100) {
-        element.classList.add("scroll-reveal");
-        setTimeout(() => {
-          element.classList.add("active");
-        }, 100);
-      }
-    });
-  }
-  
-  window.addEventListener("scroll", checkScroll);
-  checkScroll(); // Initial check
-  
-  // Add parallax effect to decorative elements
-  const decorations = document.querySelectorAll(".decoration");
-  
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    
-    decorations.forEach((decoration, index) => {
-      const speed = 0.5 + (index * 0.2);
-      decoration.style.transform = `translateY(${scrollY * speed}px)`;
-    });
-  });
-  
-  // Add hover effect to cards
-  const cards = document.querySelectorAll(".card");
-  cards.forEach(card => {
-    card.addEventListener("mouseenter", () => {
-      card.style.transform = "translateY(-5px)";
-    });
-    
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "translateY(0)";
-    });
   });
   
   // Smooth scroll for anchor links
@@ -1239,4 +1310,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 </body></html>
-
