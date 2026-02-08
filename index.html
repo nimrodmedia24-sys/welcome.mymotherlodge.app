@@ -725,7 +725,8 @@
       <nav id="nav" aria-label="Main navigation">
         <a id="nav-faq" href="https://mymotherlodge.app/faq">Preguntas Frecuentes</a>
         <a id="nav-pricing" href="https://mymotherlodge.app/pricing">Suscripciones para logias</a>
-        <select id="lang" aria-label="Seleccionar idioma">
+        <a id="nav-security" href="https://mymotherlodge.app/security-public">Seguridad</a>
+       <select id="lang" aria-label="Seleccionar idioma">
           <option value="es">Español</option>
           <option value="en">English</option>
           <option value="fr">Français</option>
@@ -859,7 +860,7 @@
    =========================== */
 const TEXTS = {
   es: {
-    navFaq:"Preguntas Frecuentes", navPricing:"Suscripciones para logias",
+    navFaq:"Preguntas Frecuentes", navPricing:"Suscripciones para logias", navSecurity:"Seguridad",
     title:"Una herramienta hecha por masones, para masones.",
     intro:"My Mother Lodge es una herramienta de gestión diseñada para fortalecer el vínculo masónico y facilitar la comunicación interna y externa de las logias. Porque la fraternidad se fortalece con conocimiento y comunicación.",
     info:[
@@ -904,7 +905,7 @@ const TEXTS = {
     ctaHeroSecondary:"Descubrir más"
   },
   en: {
-    navFaq:"FAQ", navPricing:"Subscriptions for lodges",
+    navFaq:"FAQ", navPricing:"Subscriptions for lodges", navSecurity: "Security",
     title:"A tool made by Masons, for Masons.",
     intro:"My Mother Lodge is a management tool designed to strengthen the Masonic bond and facilitate internal and external communication for lodges. Because fraternity grows through knowledge and communication.",
     info:[
@@ -949,7 +950,7 @@ const TEXTS = {
     ctaHeroSecondary:"Discover more"
   },
   fr: {
-    navFaq:"Questions fréquentes", navPricing:"Abonnements pour loges",
+    navFaq:"Questions fréquentes", navPricing:"Abonnements pour loges", navSecurity: "Sécurité",
     title:"Un outil créé par des maçons, pour des maçons.",
     intro:"My Mother Lodge est un outil de gestion conçu pour renforcer les liens maçonniques et faciliter la communication interne et externe des loges. La fraternité se renforce par la connaissance et la communication.",
     info:[
@@ -994,7 +995,7 @@ const TEXTS = {
     ctaHeroSecondary:"Découvrir plus"
   },
   pt: {
-    navFaq:"Perguntas Frequentes", navPricing:"Assinaturas para lojas",
+    navFaq:"Perguntas Frequentes", navPricing:"Assinaturas para lojas", navSecurity: "Segurança",
     title:"Uma ferramenta feita por maçons, para maçons.",
     intro:"My Mother Lodge é uma ferramenta de gestão concebida para reforçar os laços maçónicos e facilitar a comunicação interna e externa das lojas. Porque a fraternidade fortalece-se com conhecimento e comunicação.",
     info:[
@@ -1039,7 +1040,7 @@ const TEXTS = {
     ctaHeroSecondary:"Descobrir mais"
   },
   de: {
-    navFaq:"FAQ", navPricing:"Abonnements für Logen",
+    navFaq:"FAQ", navPricing:"Abonnements für Logen", navSecurity: "Sicherheit",
     title:"Ein Werkzeug von Freimaurern, für Freimaurer.",
     intro:"My Mother Lodge ist ein Verwaltungstool, das darauf abzielt, freimaurerische Bindungen zu stärken und die interne und externe Kommunikation von Logen zu erleichtern. Brüderlichkeit wächst durch Wissen und Kommunikation.",
     info:[
@@ -1084,7 +1085,7 @@ const TEXTS = {
     ctaHeroSecondary:"Mehr entdecken"
   },
   ca: {
-    navFaq:"Preguntes freqüents", navPricing:"Subscripcions per a lògies",
+    navFaq:"Preguntes freqüents", navPricing:"Subscripcions per a lògies", navSecurity: "Seguretat",
     title:"Una eina feta per maçons, per a maçons.",
     intro:"My Mother Lodge és una eina de gestió dissenyada per enfortir el vincle maçònic i facilitar la comunicació interna i externa de les lògies. La fraternitat es reforça amb coneixement i comunicació.",
     info:[
@@ -1145,6 +1146,7 @@ function render(lang){
   const t = (lang === "ca") ? TEXTS["ca"] : (TEXTS[lang] || TEXTS["es"]);
   document.getElementById("nav-faq").textContent = t.navFaq;
   document.getElementById("nav-pricing").textContent = t.navPricing;
+  document.getElementById("nav-security").textContent = t.navSecurity;
   document.getElementById("hero-title").textContent = t.title;
   document.getElementById("hero-sub").textContent = t.intro;
 
